@@ -1,4 +1,5 @@
-module.exports = (sequelize, DataTypes) => sequelize.define('Aluno', {
+module.exports = (sequelize, DataTypes) => {
+    const Alunos = sequelize.define('Aluno', {
         // id: {
         //     type: DataTypes.INTEGER, 
         //     allowNull: false,
@@ -20,4 +21,14 @@ module.exports = (sequelize, DataTypes) => sequelize.define('Aluno', {
             type: DataTypes.INTEGER, 
             allowNull: false
         }
-});
+    });
+
+    Alunos.associate = models => {
+        Alunos.hasMany(models.Atendimento, {
+            as: 'Atendimentos',
+            foreignKey: 'aluno_id'
+        });
+    };
+
+    return Alunos;
+};
